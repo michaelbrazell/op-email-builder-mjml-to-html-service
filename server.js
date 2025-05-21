@@ -1,9 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mjml = require('mjml');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// CORS configuration
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
+};
+app.use(cors(corsOptions));
 
 // Middleware to parse JSON requests
 app.use(bodyParser.json({ limit: '10mb' }));
