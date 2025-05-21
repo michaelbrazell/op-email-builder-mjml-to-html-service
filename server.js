@@ -2,9 +2,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mjml = require('mjml');
 const cors = require('cors');
+const morgan = require('morgan');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Custom token for source IP address
+morgan.token('remote-addr', (req) => {
+  return req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+});
+
+// Custom logging format
+app.use(morgan(':remote-addr - :method :url :status :response-time ms - :referrer - :user-agent'));
 
 // CORS configuration
 const corsOptions = {
