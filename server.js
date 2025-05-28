@@ -17,7 +17,7 @@ app.use(morgan(':remote-addr - :method :url :status :response-time ms - :referre
 
 // CORS configuration
 const corsOptions = {
-  origin: 'http://localhost:8080',
+  origin: process.env.ALLOWED_ORIGINS || 'http://localhost:8080',
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type']
 };
