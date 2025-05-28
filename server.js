@@ -17,8 +17,12 @@ app.use(morgan(':remote-addr - :method :url :status :response-time ms - :referre
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.ALLOWED_ORIGINS || 'http://localhost:8080',
-  methods: ['GET', 'POST'],
+  origin: [
+    'http://localhost:8080',  // For local development
+    'https://op-email-builder.onrender.com',  // Deployed Go app
+    ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [])
+  ],
+  methods: ['GET', 'POST', 'OPTIONS'],  // Add OPTIONS for preflight
   allowedHeaders: ['Content-Type']
 };
 app.use(cors(corsOptions));
